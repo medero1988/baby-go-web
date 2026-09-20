@@ -1,0 +1,68 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Fraunces', ui-serif, Georgia, serif;
+  --color-ink: #1c1917;
+  --color-ink-soft: #44403c;
+  --color-muted: #78716c;
+  --color-sand: #f4efe8;
+  --color-paper: #fffaf5;
+  --color-line: #e7dfd4;
+  --color-terracotta: #d86a4a;
+  --color-terracotta-dark: #b4532a;
+  --color-sage: #3f5d4e;
+  --color-gold: #e6c07b;
+  --color-danger: #b42318;
+  --shadow-card: 0 18px 40px -28px rgb(28 25 23 / 0.45);
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-sand);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+}
+
+.bg-grain {
+  background-image:
+    radial-gradient(
+      ellipse at top left,
+      rgb(232 196 160 / 0.35),
+      transparent 42%
+    ),
+    radial-gradient(
+      ellipse at bottom right,
+      rgb(216 106 74 / 0.12),
+      transparent 36%
+    );
+}
+
+.bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.07'/%3E%3C/svg%3E");
+}
+
+input,
+textarea,
+select,
+button {
+  font-family: inherit;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
