@@ -2,6 +2,7 @@ import { ApiError, type ApiErrorBody } from '@/types/api';
 import { session } from '@/lib/session';
 
 const API_URL = import.meta.env.VITE_API_URL || '/api';
+const API_TOKEN = import.meta.env.VITE_API_TOKEN || '';
 
 type RequestOptions = {
   method?: string;
@@ -16,6 +17,12 @@ type RefreshResponse = {
   accessToken: string;
   refreshToken: string;
 };
+
+function baseHeaders(): Record<string, string> {
+  const headers: Record<string, string> = {};
+  if (API_TOKEN) headers['x-api-token'] = API_TOKEN;
+  return headers;
+}
 
 async function parseBody(response: Response): Promise<unknown> {
   const text = await response.text();
@@ -33,7 +40,10 @@ async function refreshAccessToken(): Promise<boolean> {
 
   const response = await fetch(`${API_URL}/v1/auth/access-refresh`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      ...baseHeaders(),
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify({ refreshToken }),
   });
 
@@ -52,7 +62,10 @@ export async function apiRequest<T>(
   options: RequestOptions = {},
 ): Promise<T> {
   const { method = 'GET', body, auth = true, formData, retry = true } = options;
-  const headers: Record<string, string> = { ...options.headers };
+  const headers: Record<string, string> = {
+    ...baseHeaders(),
+    ...options.headers,
+  };
 
   if (!formData) {
     headers['Content-Type'] = 'application/json';
