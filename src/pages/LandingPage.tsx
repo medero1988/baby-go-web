@@ -1,5 +1,6 @@
-import { ArrowRight, TicketsPlane, Bike, Package, Shield } from 'lucide-react';
+import { ArrowRight, Search, Bike, Package, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
+import { PublicHeader } from '@/components/layout/PublicHeader';
 import { useAuth } from '@/auth/AuthProvider';
 
 export function LandingPage() {
@@ -7,76 +8,62 @@ export function LandingPage() {
 
   return (
     <div className="bg-grain min-h-screen">
-      <header className="mx-auto flex max-w-6xl items-center justify-between px-4 py-5">
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-ink text-paper">
-            <TicketsPlane size={20} />
-          </div>
-          <span className="font-display text-2xl">Flyfree</span>
-        </div>
-        <div className="flex items-center gap-2">
-          {user ? (
-            <Button to="/app" variant="dark">
-              Ir al panel
-            </Button>
-          ) : (
-            <>
-              <Button to="/login" variant="ghost">
-                Entrar
-              </Button>
-              <Button to="/register">Crear cuenta</Button>
-            </>
-          )}
-        </div>
-      </header>
+      <PublicHeader active="home" />
 
       <section className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-12 md:grid-cols-[1.1fr_0.9fr] md:py-20">
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.22em] text-terracotta">
-            Alquiler de equipos según tu necesidad.
+            Alquiler de equipo bebé
           </p>
-          <h2 className="mt-4 font-display text-5xl leading-[1.05] md:text-7xl">
-            Viaja liviano y
+          <h1 className="mt-4 font-display text-5xl leading-[1.05] md:text-7xl">
+            Viajá liviano.
             <br />
-             arrienda equipos de alta calidad en tu destino.
-          </h2>
+            El cochecito te espera.
+          </h1>
           <p className="mt-5 max-w-lg text-base text-ink-soft md:text-lg">
-            Panel para providers: tienda, catálogo, combos y pagos Stripe.
-            Consume las APIs de Flyfree en local.
+            Explorá el catálogo sin cuenta. Alquilá como cliente cuando estés
+            listo, o gestioná tu tienda si sos provider.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Button to="/register" icon={<ArrowRight size={16} />}>
-              Empezar como provider
+            <Button to="/search" icon={<Search size={16} />}>
+              Explorar catálogo
             </Button>
-            <Button to="/login" variant="secondary">
-              Ya tengo cuenta
-            </Button>
+            {user ? (
+              <Button to="/app" variant="secondary">
+                Ir al panel
+              </Button>
+            ) : (
+              <Button
+                to="/register"
+                variant="secondary"
+                icon={<ArrowRight size={16} />}
+              >
+                Soy provider
+              </Button>
+            )}
           </div>
         </div>
         <div className="relative">
           <div className="absolute -left-4 -top-4 h-24 w-24 rounded-full bg-gold/50 blur-2xl" />
           <div className="rounded-[40px] border border-line bg-paper p-6 shadow-(--shadow-card)">
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-muted">
-              Hoy en el catálogo
+              Cómo funciona
             </p>
             <div className="mt-5 space-y-4">
               {[
-                ['Maxy-cosi Rainbow', 'Cochecito', '€10 / día'],
-                ['City Cruiser Kids', 'Bici', '€15 / día'],
-                ['Duo Bugaboo', 'Combo', '€26 / día'],
-              ].map(([title, tag, price]) => (
-                <div
-                  key={title}
-                  className="flex items-center justify-between rounded-3xl bg-sand px-4 py-3"
-                >
-                  <div>
-                    <p className="font-semibold">{title}</p>
-                    <p className="text-xs text-muted">{tag}</p>
-                  </div>
-                  <p className="font-display text-xl">{price}</p>
+                ['1. Buscá', 'Destino, fechas y tipo de equipo'],
+                ['2. Elegí', 'Productos y combos de tiendas locales'],
+                ['3. Alquilá', 'Login de cliente solo al confirmar'],
+              ].map(([title, body]) => (
+                <div key={title} className="rounded-3xl bg-sand px-4 py-3">
+                  <p className="font-semibold">{title}</p>
+                  <p className="text-xs text-muted">{body}</p>
                 </div>
               ))}
             </div>
+            <Button to="/search" variant="dark" className="mt-5 w-full">
+              Ver equipos disponibles
+            </Button>
           </div>
         </div>
       </section>
@@ -84,19 +71,19 @@ export function LandingPage() {
       <section className="mx-auto grid max-w-6xl gap-4 px-4 pb-20 md:grid-cols-3">
         {[
           {
+            icon: Search,
+            title: 'Para viajeros',
+            body: 'Catálogo público con delivery o retiro. Sin login para mirar.',
+          },
+          {
             icon: Package,
-            title: 'Catálogo',
-            body: 'Productos con fotos, atributos libres y ofertas por fecha.',
+            title: 'Para providers',
+            body: 'Tienda, productos, combos y Stripe Connect desde el panel.',
           },
           {
             icon: Bike,
-            title: 'Combos',
-            body: 'Arma bundles de 2 a 5 productos activos de tu tienda.',
-          },
-          {
-            icon: Shield,
-            title: 'Stripe Connect',
-            body: 'Onboarding de store, payouts y movimientos del provider.',
+            title: 'Misma web',
+            body: 'Un provider también puede alquilar como cliente cuando viaja.',
           },
         ].map((item) => (
           <div
@@ -109,6 +96,29 @@ export function LandingPage() {
           </div>
         ))}
       </section>
+
+      {!user ? (
+        <section className="mx-auto max-w-6xl px-4 pb-20">
+          <div className="flex flex-col items-start justify-between gap-4 rounded-[32px] border border-line bg-paper px-6 py-8 md:flex-row md:items-center">
+            <div>
+              <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-muted">
+                <Shield size={14} />
+                Providers
+              </p>
+              <h2 className="mt-2 font-display text-3xl">
+                ¿Querés publicar tu catálogo?
+              </h2>
+              <p className="mt-2 max-w-xl text-sm text-muted">
+                Creá cuenta, configurá la tienda y publicá productos activos.
+                Aparecen en el search público.
+              </p>
+            </div>
+            <Button to="/register" icon={<ArrowRight size={16} />}>
+              Empezar como provider
+            </Button>
+          </div>
+        </section>
+      ) : null}
     </div>
   );
 }

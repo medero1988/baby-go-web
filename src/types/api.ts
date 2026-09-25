@@ -131,6 +131,92 @@ export type CatalogQuery = {
   limit?: number;
 };
 
+export type SearchKind = 'product' | 'bundle';
+export type SearchHandoffType = 'delivery' | 'customer_pickup';
+
+export type SearchDestination = {
+  country: string;
+  city?: string;
+};
+
+export type SearchCategoryFilter = {
+  name: string;
+  types?: string[];
+  accessories?: string[];
+};
+
+export type SearchRentalPeriod = {
+  start: string;
+  end: string;
+};
+
+export type SearchHandoff = {
+  type: SearchHandoffType;
+  address?: string;
+  /** Minutos desde 00:00. */
+  time?: number;
+};
+
+export type SearchBody = {
+  destination?: SearchDestination;
+  categories?: SearchCategoryFilter[];
+  rentalPeriod?: SearchRentalPeriod;
+  acquisition?: SearchHandoff;
+  devolution?: SearchHandoff;
+};
+
+export type SearchQuery = {
+  offset?: number;
+  limit?: number;
+};
+
+export type SearchFulfillment = {
+  available: boolean;
+  available24h?: boolean;
+  timeRanges: string[];
+  days?: DeliveryDaysMap;
+};
+
+export type SearchStoreSummary = {
+  id: string;
+  name: string;
+  country: string;
+  address: StoreAddress;
+  delivery?: SearchFulfillment;
+  customerPickup?: SearchFulfillment;
+};
+
+export type SearchBundleProduct = {
+  id: string;
+  title: string;
+  category: string;
+};
+
+export type SearchItem = {
+  kind: SearchKind;
+  id: string;
+  title: string;
+  description: string;
+  /** Producto: un id. Combo: `['bundle', ...categorías]`. */
+  category: string | string[];
+  price: ProductPrice;
+  attributes?: ProductAttributes;
+  products?: SearchBundleProduct[];
+  medias: ProductMedia[];
+  store: SearchStoreSummary;
+};
+
+export type SearchNextPage = {
+  offset: number;
+  limit: number;
+};
+
+export type SearchResponse = {
+  data: SearchItem[];
+  total: number;
+  nextPage: SearchNextPage | null;
+};
+
 export type FunnelLastSteep =
   | 'profile'
   | 'cell-verification'
