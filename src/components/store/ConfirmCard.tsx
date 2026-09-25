@@ -61,7 +61,7 @@ export function ConfirmCard({
                 checked={accepted}
                 onChange={(e) => setAccepted(e.target.checked)}
               />
-              Acepto los términos y condiciones de Baby Go.
+              Acepto los términos y condiciones de Flyfree.
             </label>
             <Button type="submit" loading={loading} disabled={!accepted}>
               Enviar a revisión

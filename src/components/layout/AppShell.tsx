@@ -1,6 +1,6 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import {
-  Baby,
+  TicketsPlane,
   Boxes,
   LayoutDashboard,
   LogOut,
@@ -28,10 +28,10 @@ export function AppShell() {
       <aside className="flex min-h-full flex-col bg-ink text-paper">
         <div className="flex items-center gap-3 px-6 py-6">
           <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-terracotta">
-            <Baby size={20} />
+            <TicketsPlane size={20} />
           </div>
           <div>
-            <p className="font-display text-xl leading-none">Baby Go</p>
+            <p className="font-display text-xl leading-none">Flyfree</p>
             <p className="mt-1 text-[11px] uppercase tracking-[0.18em] text-white/50">
               Provider
             </p>
@@ -92,7 +92,7 @@ export function AppShell() {
       </aside>
       <div className="min-h-screen">
         <header className="flex items-center justify-between border-b border-line px-4 py-3 lg:hidden">
-          <p className="font-display text-lg">Baby Go</p>
+          <p className="font-display text-lg">Flyfree</p>
           <button
             className="text-sm font-semibold text-muted"
             onClick={async () => {
