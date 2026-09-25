@@ -1,4 +1,4 @@
-import { ArrowRight, Baby, Bike, Package, Shield } from 'lucide-react';
+import { ArrowRight, TicketsPlane, Bike, Package, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { useAuth } from '@/auth/AuthProvider';
 
@@ -10,9 +10,9 @@ export function LandingPage() {
       <header className="mx-auto flex max-w-6xl items-center justify-between px-4 py-5">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-ink text-paper">
-            <Baby size={20} />
+            <TicketsPlane size={20} />
           </div>
-          <span className="font-display text-2xl">Baby Go</span>
+          <span className="font-display text-2xl">Flyfree</span>
         </div>
         <div className="flex items-center gap-2">
           {user ? (
@@ -33,16 +33,16 @@ export function LandingPage() {
       <section className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-12 md:grid-cols-[1.1fr_0.9fr] md:py-20">
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.22em] text-terracotta">
-            Alquiler de equipo bebé
+            Alquiler de equipos según tu necesidad.
           </p>
-          <h1 className="mt-4 font-display text-5xl leading-[1.05] md:text-7xl">
-            Viajá liviano.
+          <h2 className="mt-4 font-display text-5xl leading-[1.05] md:text-7xl">
+            Viaja liviano y
             <br />
-            El cochecito te espera.
-          </h1>
+             arrienda equipos de alta calidad en tu destino.
+          </h2>
           <p className="mt-5 max-w-lg text-base text-ink-soft md:text-lg">
             Panel para providers: tienda, catálogo, combos y pagos Stripe.
-            Consume las APIs de Baby Go en local.
+            Consume las APIs de Flyfree en local.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button to="/register" icon={<ArrowRight size={16} />}>
@@ -91,7 +91,7 @@ export function LandingPage() {
           {
             icon: Bike,
             title: 'Combos',
-            body: 'Armá bundles de 2 a 10 productos activos de tu tienda.',
+            body: 'Arma bundles de 2 a 5 productos activos de tu tienda.',
           },
           {
             icon: Shield,

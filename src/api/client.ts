@@ -2,6 +2,12 @@ import { ApiError, type ApiErrorBody } from '@/types/api';
 import { session } from '@/lib/session';
 
 const API_URL = import.meta.env.VITE_API_URL || '/api';
+const API_TOKEN = import.meta.env.VITE_API_TOKEN?.trim();
+
+function withApiToken(headers: Record<string, string>): Record<string, string> {
+  if (API_TOKEN) headers['x-api-token'] = API_TOKEN;
+  return headers;
+}
 
 type RequestOptions = {
   method?: string;
@@ -33,7 +39,7 @@ async function refreshAccessToken(): Promise<boolean> {
 
   const response = await fetch(`${API_URL}/v1/auth/access-refresh`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: withApiToken({ 'Content-Type': 'application/json' }),
     body: JSON.stringify({ refreshToken }),
   });
 
@@ -52,7 +58,7 @@ export async function apiRequest<T>(
   options: RequestOptions = {},
 ): Promise<T> {
   const { method = 'GET', body, auth = true, formData, retry = true } = options;
-  const headers: Record<string, string> = { ...options.headers };
+  const headers = withApiToken({ ...options.headers });
 
   if (!formData) {
     headers['Content-Type'] = 'application/json';
