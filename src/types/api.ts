@@ -369,6 +369,20 @@ export type CreateProductInput = {
   attributes?: ProductAttributes;
 };
 
+export type UpdateProductInput = {
+  category?: string;
+  title?: string;
+  description?: string;
+  price?: {
+    list?: number;
+    offer?: number | null;
+    activeFrom?: string;
+    activeUntil?: string;
+  };
+  attributes?: ProductAttributes;
+  status?: ProductStatus;
+};
+
 export type CreateBundleInput = {
   products: string[];
   title: string;
