@@ -8,6 +8,8 @@ import {
 } from '@/catalog/TaxonomyProvider';
 import { AppShell } from '@/components/layout/AppShell';
 import { LandingPage } from '@/pages/LandingPage';
+import { SearchPage } from '@/pages/SearchPage';
+import { SearchItemPage } from '@/pages/SearchItemPage';
 import { LoginPage } from '@/pages/auth/LoginPage';
 import { RegisterPage } from '@/pages/auth/RegisterPage';
 import { VerifyEmailPage } from '@/pages/auth/VerifyEmailPage';
@@ -39,6 +41,22 @@ export function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
+          <Route
+            path="/search"
+            element={
+              <TaxonomyProvider>
+                <SearchPage />
+              </TaxonomyProvider>
+            }
+          />
+          <Route
+            path="/search/:kind/:id"
+            element={
+              <TaxonomyProvider>
+                <SearchItemPage />
+              </TaxonomyProvider>
+            }
+          />
           <Route
             path="/login"
             element={
