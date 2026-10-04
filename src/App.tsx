@@ -76,6 +76,7 @@ export function App() {
             <Route path="products" element={<ProductsTaxonomyLayout />}>
               <Route index element={<ProductsPage />} />
               <Route path="new" element={<ProductFormPage />} />
+              <Route path=":id/edit" element={<ProductFormPage />} />
               <Route path=":id" element={<ProductDetailPage />} />
             </Route>
             <Route path="bundles" element={<BundlesPage />} />

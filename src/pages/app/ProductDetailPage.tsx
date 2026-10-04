@@ -165,6 +165,9 @@ export function ProductDetailPage() {
             attributes={product.attributes}
           />
           <div className="flex flex-wrap gap-2">
+            <Button to={`/app/products/${product.id}/edit`} variant="secondary">
+              Editar
+            </Button>
             <label
               className={`inline-flex cursor-pointer items-center justify-center rounded-full border border-line bg-paper px-4 py-2.5 text-sm font-semibold ${
                 busy ? 'pointer-events-none opacity-50' : ''
